@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  User
+  Trainer
+  Nutritionist
+}
+
+enum MealType {
+  Breakfast
+  Lunch
+  Dinner
+}
+
+model User {
+  id           String   @id @default(uuid()) @map("user_id")
+  name         String
+  email        String   @unique
+  role         UserRole
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  trainerId    String?  @map("trainer_id")
+
+  // Relationships
+  healthLogs        HealthLog[]
+  activities        ActivityTracker[]
+  mealPlans         MealPlanner[]
+  goals             GoalSetting[]
+  insights          InsightsAndAnalytics[]
+  communities       CommunityFeatures[]
+  emergencyContacts EmergencyContact[]
+  assignedTrainer   TrainerNutritionist?   @relation("UserToTrainer", fields: [trainerId], references: [id])
+
+  @@map("users")
+}
+
+model TrainerNutritionist {
+  id     String @id @default(uuid()) @map("trainer_id")
+  userId String @unique @map("user_id")
+  name   String
+  email  String @unique
+  role   String // Either "Trainer" or "Nutritionist"
+
+  // Relationships
+  clients   User[]        @relation("UserToTrainer")
+  mealPlans MealPlanner[]
+
+  @@map("trainer_nutritionist")
+}
+
+model HealthLog {
+  id            String   @id @default(uuid()) @map("log_id")
+  userId        String   @map("user_id")
+  date          DateTime
+  weight        Float
+  bloodPressure String   @map("blood_pressure")
+  sleepHours    Float    @map("sleep_hours")
+  waterIntake   Float    @map("water_intake")
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("health_logs")
+}
+
+model ActivityTracker {
+  id             String   @id @default(uuid()) @map("activity_id")
+  userId         String   @map("user_id")
+  date           DateTime
+  exerciseType   String   @map("exercise_type")
+  duration       Int
+  caloriesBurned Int      @map("calories_burned")
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("activity_tracker")
+}
+
+model MealPlanner {
+  id                   String   @id @default(uuid()) @map("meal_id")
+  userId               String   @map("user_id")
+  trainerId            String?  @map("trainer_id")
+  mealPlanDate         DateTime @map("meal_plan_date")
+  mealType             MealType
+  ingredients          String
+  nutritionalBreakdown String   @map("nutritional_breakdown")
+
+  // Relationships
+  user    User                 @relation(fields: [userId], references: [id])
+  trainer TrainerNutritionist? @relation(fields: [trainerId], references: [id])
+
+  @@map("meal_planner")
+}
+
+model GoalSetting {
+  id              String   @id @default(uuid()) @map("goal_id")
+  userId          String   @map("user_id")
+  goalType        String   @map("goal_type")
+  goalValue       String   @map("goal_value")
+  currentProgress Float    @map("current_progress")
+  targetDate      DateTime @map("target_date")
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("goal_setting")
+}
+
+model InsightsAndAnalytics {
+  id             String @id @default(uuid()) @map("insight_id")
+  userId         String @map("user_id")
+  weeklySummary  String @map("weekly_summary")
+  monthlySummary String @map("monthly_summary")
+  aiSuggestions  String @map("ai_suggestions")
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("insights_analytics")
+}
+
+model CommunityFeatures {
+  id                String @id @default(uuid()) @map("community_id")
+  userId            String @map("user_id")
+  groupName         String @map("group_name")
+  groupParticipants String @map("group_participants")
+  forumPosts        String @map("forum_posts")
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("community_features")
+}
+
+model EmergencyContact {
+  id            String @id @default(uuid()) @map("contact_id")
+  userId        String @map("user_id")
+  contactName   String @map("contact_name")
+  relationship  String
+  contactNumber String @map("contact_number")
+
+  // Relationships
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("emergency_contacts")
+}
