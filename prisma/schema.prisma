@@ -62,10 +62,9 @@ model HealthLog {
   weight        Float
   bloodPressure String   @map("blood_pressure")
   sleepHours    Float    @map("sleep_hours")
-  waterIntake   Float    @map("water_intake")
-
+  waterIntake   Float    @map("water_intake") // Added missing closing parenthesis
   // Relationships
-  user User @relation(fields: [userId], references: [id])
+  user          User     @relation(fields: [userId], references: [id])
 
   @@map("health_logs")
 }

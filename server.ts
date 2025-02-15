@@ -1,6 +1,17 @@
 import express from "express";
+import healthLogRoutes from "./src/routes/healthLogRoutes";
+
 const app = express();
 
+app.use('/',(req,res,next)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, content-type');
+    next();
+
+})
+
+app.use('/healthlog' ,healthLogRoutes);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
