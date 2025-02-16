@@ -1,6 +1,8 @@
 import express from "express";
 import healthLogRoutes from "./src/routes/healthLogRoutes";
 import activityTracker from "./src/routes/activityTracker";
+import mealPlanRoutes from "./src/routes/mealPlanRoutes";
+import emergencyContactRoutes from "./src/routes/emergencyContactRoutes";
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use('/',(req,res,next)=>{
 
 app.use('/healthlog' ,healthLogRoutes);
 app.use('/activitytracker' ,activityTracker);
+app.use('/mealplan', mealPlanRoutes);
+app.use('/emergencycontact', emergencyContactRoutes);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
