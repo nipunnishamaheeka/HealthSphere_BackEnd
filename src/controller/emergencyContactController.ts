@@ -4,19 +4,19 @@ import {EmergencyContactModel} from "../model/emergencyContactModel";
 
 const prisma = new PrismaClient();
 
-export async function addEmergencyContact(emergencyContact: EmergencyContactModel){
+export async function addEmergencyContact(emergencyContact: EmergencyContactModel) {
     try {
-        await prisma.emergencyContact.create({
+        return await prisma.emergencyContact.create({
             data: {
                 userId: emergencyContact.user_id,
                 contactName: emergencyContact.contact_name,
-                contactNumber: emergencyContact.contact_number,
-                relationship: emergencyContact.relationship
+                relationship: emergencyContact.relationship,
+                contactNumber: emergencyContact.contact_number
             }
-        })
-        console.log("EmergencyContact Created successfully");
+        });
     } catch (error) {
-        console.log(error)
+        console.error("Error adding emergency contact:", error);
+        throw new Error("Error adding emergency contact: " + (error instanceof Error ? error.message : "Unknown error"));
     }
 }
 
