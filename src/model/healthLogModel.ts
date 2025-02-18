@@ -23,6 +23,6 @@ export class HealthLogModel {
         this.blood_pressure = blood_pressure;
         this.sleep_hours = sleep_hours
         this.water_intake = water_intake;
-        this.water_intake = water_intake;
+
     }
 }
