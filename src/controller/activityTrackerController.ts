@@ -40,3 +40,22 @@ export async function deleteActivityTracker(id: string) {
         console.log(error)
     }
 }
+    export async function updateActivityTracker(id: string, activityTracker: ActivityTrackerModel) {
+        try {
+            await prisma.activityTracker.update({
+                where: {
+                    id: id
+                },
+                data: {
+                    userId: activityTracker.user_id,
+                    date: activityTracker.date,
+                    exerciseType: activityTracker.exercise_type,
+                    duration: activityTracker.duration,
+                    caloriesBurned: activityTracker.calories_burned
+                }
+            })
+            console.log("ActivityTrackerModel Updated successfully");
+        } catch (error) {
+            console.log(error)
+        }
+    }

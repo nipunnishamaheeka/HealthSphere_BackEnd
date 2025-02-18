@@ -1,5 +1,10 @@
 import express from "express";
-import {addActivityTracker, deleteActivityTracker, getActivityTrackers} from "../controller/activityTrackerController";
+import {
+    addActivityTracker,
+    deleteActivityTracker,
+    getActivityTrackers,
+    updateActivityTracker
+} from "../controller/activityTrackerController";
 
 const router = express.Router();
 router.use(express.json());
@@ -31,6 +36,16 @@ router.delete('/delete/:id', async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).send("error deleting activityTracker");
+    }
+});
+
+router.put('/update/:id', async (req, res) => {
+    try {
+        const updatedActivityTracker = await updateActivityTracker(req.params.id, req.body);
+        res.json(updatedActivityTracker);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send("error updating activityTracker");
     }
 })
 
