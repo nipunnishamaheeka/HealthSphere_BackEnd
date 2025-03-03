@@ -9,9 +9,9 @@ export async function addActivityTracker(activityTracker: ActivityTrackerModel){
             data: {
                 userId: activityTracker.user_id,
                 date: new Date(),
-                exerciseType: activityTracker.exercise_type,
+                exerciseType: activityTracker.type,
                 duration: activityTracker.duration,
-                caloriesBurned: activityTracker.calories_burned
+                caloriesBurned: activityTracker.calories
             }
         })
         console.log("ActivityTrackerModel Created successfully");
@@ -49,9 +49,9 @@ export async function deleteActivityTracker(id: string) {
                 data: {
                     userId: activityTracker.user_id,
                     date: activityTracker.date,
-                    exerciseType: activityTracker.exercise_type,
+                    exerciseType: activityTracker.type,
                     duration: activityTracker.duration,
-                    caloriesBurned: activityTracker.calories_burned
+                    caloriesBurned: activityTracker.calories
                 }
             })
             console.log("ActivityTrackerModel Updated successfully");
