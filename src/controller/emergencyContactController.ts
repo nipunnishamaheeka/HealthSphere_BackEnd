@@ -9,9 +9,9 @@ export async function addEmergencyContact(emergencyContact: EmergencyContactMode
         return await prisma.emergencyContact.create({
             data: {
                 userId: emergencyContact.user_id,
-                contactName: emergencyContact.contact_name,
+                contactName: emergencyContact.contactName,
                 relationship: emergencyContact.relationship,
-                contactNumber: emergencyContact.contact_number
+                contactNumber: emergencyContact.contactNumber
             }
         });
     } catch (error) {
@@ -51,8 +51,8 @@ export async function updateEmergencyContact(id: string, emergencyContact: Emerg
             },
             data: {
                 userId: emergencyContact.user_id,
-                contactName: emergencyContact.contact_name,
-                contactNumber: emergencyContact.contact_number,
+                contactName: emergencyContact.contactName,
+                contactNumber: emergencyContact.contactNumber,
                 relationship: emergencyContact.relationship
             }
         })

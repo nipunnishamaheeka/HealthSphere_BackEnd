@@ -1,18 +1,18 @@
 export class EmergencyContactModel {
     user_id: string;
-    contact_name: string;
+    contactName: string;
     relationship: string;
-    contact_number: string;
+    contactNumber: string;
 
     constructor(
         user_id: string,
-        contact_name: string,
+        contactName: string,
         relationship: string,
-        contact_number: string
+        contactNumber: string
     ) {
         this.user_id = user_id;
-        this.contact_name = contact_name;
+        this.contactName = contactName;
         this.relationship = relationship;
-        this.contact_number = contact_number;
+        this.contactNumber = contactNumber;
     }
 }
