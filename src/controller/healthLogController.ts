@@ -12,9 +12,9 @@ export async function addHealthLog(healthLog: HealthLogModel){
                 // date: healthLog.date,
                 date: new Date(),
                 weight: healthLog.weight,
-                bloodPressure: healthLog.blood_pressure,
-                sleepHours: healthLog.sleep_hours,
-                waterIntake: healthLog.water_intake
+                bloodPressure: healthLog.bloodPressure,
+                sleepHours: healthLog.sleepHours,
+                waterIntake: healthLog.waterIntake
             }
         })
         console.log("HealthLogModel Created successfully");
@@ -43,9 +43,9 @@ export async function updateHealthLog(id: string, healthLog: HealthLogModel) {
                 userId: healthLog.user_id,
                 date: healthLog.date,
                 weight: healthLog.weight,
-                bloodPressure: healthLog.blood_pressure,
-                sleepHours: healthLog.sleep_hours,
-                waterIntake: healthLog.water_intake
+                bloodPressure: healthLog.bloodPressure,
+                sleepHours: healthLog.sleepHours,
+                waterIntake: healthLog.waterIntake
             }
         })
         console.log("HealthLogModel Updated successfully");

@@ -18,7 +18,8 @@ router.post('/post', async (req , res) => {
     try{
         console.log(req.body)
         const addedHealthLog = await addHealthLog(req.body);
-        res.json(addedHealthLog);
+        // res.json(addedHealthLog);
+        res.status(201).json(addedHealthLog);
     }catch (error){
         console.log(error);
         res.status(400).send("error adding healthLog");
