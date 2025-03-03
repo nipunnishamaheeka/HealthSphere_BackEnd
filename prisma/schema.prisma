@@ -20,13 +20,13 @@ enum MealType {
 }
 
 model User {
-  id           String   @id @default(uuid()) @map("user_id")
+  id           String @id @default(uuid()) @map("user_id")
   name         String
-  email        String   @unique
-  role         UserRole
-  passwordHash String   @map("password_hash")
-  createdAt    DateTime @default(now()) @map("created_at")
-  trainerId    String?  @map("trainer_id")
+  email        String @unique
+  // role         UserRole
+  passwordHash String @map("password_hash")
+  // createdAt    DateTime @default(now()) @map("created_at")
+  // trainerId    String?  @map("trainer_id")
 
   // Relationships
   healthLogs        HealthLog[]
@@ -36,7 +36,7 @@ model User {
   insights          InsightsAndAnalytics[]
   communities       CommunityFeatures[]
   emergencyContacts EmergencyContact[]
-  assignedTrainer   TrainerNutritionist?   @relation("UserToTrainer", fields: [trainerId], references: [id])
+  //  assignedTrainer   TrainerNutritionist?   @relation("UserToTrainer", fields: [trainerId], references: [id])
 
   @@map("users")
 }
@@ -49,7 +49,7 @@ model TrainerNutritionist {
   role   String // Either "Trainer" or "Nutritionist"
 
   // Relationships
-  clients   User[]        @relation("UserToTrainer")
+  // clients   User[]        @relation("UserToTrainer")
   mealPlans MealPlanner[]
 
   @@map("trainer_nutritionist")
@@ -87,7 +87,7 @@ model MealPlanner {
   id                   String   @id @default(uuid()) @map("meal_id")
   userId               String   @map("user_id")
   trainerId            String?  @map("trainer_id")
-  mealPlanDate         DateTime @map("meal_plan_date")
+  mealPlanDate         DateTime @default(now()) @map("meal_plan_date")
   mealType             MealType
   ingredients          String
   nutritionalBreakdown String   @map("nutritional_breakdown")
